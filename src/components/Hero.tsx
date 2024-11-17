@@ -19,7 +19,7 @@ const Hero = () => {
     if (typeof window !== "undefined" && window.innerWidth >= 1024) {
       setLineHeight("3.5rem");
     }
-  }, [window]);
+  }, []);
 
   return (
     <div className="h-screen w-screen flex items-center justify-center pt-12 xs:pt-36">
