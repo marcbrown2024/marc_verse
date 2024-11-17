@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 // Aceternity UI components
 import { BackgroundGradientAnimation } from "@/components/ui/GradientBg";
-import GridGlobe from "@/components/ui/GridGlobe";
+// import GridGlobe from "@/components/ui/GridGlobe";
 import MagicButton from "@/components/ui/MagicButton";
 
 // other components

@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
+const inter = Inter({ subsets: ["latin"] });
+
 export const metadata: Metadata = {
   title: "MarcVerse",
   description:
@@ -16,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className={`${inter.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
