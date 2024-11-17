@@ -13,7 +13,11 @@ import MagicButton from "@/components/ui/MagicButton";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 
 const Hero = () => {
-  const lineHeight = window.innerWidth >= 1024 ? "3.5rem" : "2.5rem";
+  let lineHeight = "";
+
+  if (typeof window !== "undefined") {
+    lineHeight = window.innerWidth >= 1024 ? "3.5rem" : "2.5rem";
+  }
 
   return (
     <div className="h-screen w-screen flex items-center justify-center pt-12 xs:pt-36">
