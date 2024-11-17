@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 /**
  * Note: Use position fixed according to your needs
@@ -8,7 +8,7 @@
 // library and utilities
 
 // react/nextjs components
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -19,8 +19,6 @@ import {
   MotionValue,
   motion,
   useMotionValue,
-  useMotionValueEvent,
-  useScroll,
   useSpring,
   useTransform,
 } from "framer-motion";
@@ -37,33 +35,44 @@ export const FloatingDock = ({
   desktopClassName?: string;
   mobileClassName?: string;
 }) => {
-  const { scrollYProgress } = useScroll();
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [ishovered, setIsHovered] = useState(false);
+  
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
 
-  useMotionValueEvent(scrollYProgress, "change", (current) => {
-    // Check if current is not undefined and is a number
-    if (typeof current === "number") {
-      const direction = current! - scrollYProgress.getPrevious()!;
-
-      if (scrollYProgress.get() < 0.05) {
-        setVisible(false);
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setVisible(true); // User is at the top of the page
       } else {
-        if (direction > 0) {
-          setVisible(true);
-        } else {
+        setVisible(true); // User is scrolling
+      }
+
+      clearTimeout(timeoutId);
+
+      timeoutId = setTimeout(() => {
+        // If the user is inactive and not at the top, and not hovered, hide the element
+        if (window.scrollY !== 0 && !ishovered) {
           setVisible(false);
         }
-      }
-    }
-  });
+      }, 2000); // 2 seconds of inactivity
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, [ishovered]); // Dependency array includes ishovered to re-run when hover state changes
 
   return (
     <div
       className={`fixed top-28 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30%] z-50 transition-opacity duration-500 ease-in-out ${
-        visible ? "opacity-100" : "opacity-0 scale-90"
+        visible ? "opacity-100" : "opacity-0 scale-90 -z-50"
       }`}
     >
-      <FloatingDockDesktop items={items} className={desktopClassName} />
+      <FloatingDockDesktop items={items} className={desktopClassName} setIsHovered={setIsHovered} />
       <FloatingDockMobile items={items} className={mobileClassName} />
     </div>
   );
@@ -128,9 +137,11 @@ const FloatingDockMobile = ({
 const FloatingDockDesktop = ({
   items,
   className,
+  setIsHovered,
 }: {
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
+  setIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const mouseX = useMotionValue(Infinity);
   return (
@@ -143,7 +154,7 @@ const FloatingDockDesktop = ({
       )}
     >
       {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} />
+        <IconContainer mouseX={mouseX} key={item.title} {...item} setIsHovered={setIsHovered}/>
       ))}
     </motion.div>
   );
@@ -154,11 +165,13 @@ function IconContainer({
   title,
   icon,
   href,
+  setIsHovered,
 }: {
   mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
   href: string;
+  setIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -171,7 +184,11 @@ function IconContainer({
   const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
   const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
 
-  const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
+  const widthTransformIcon = useTransform(
+    distance,
+    [-150, 0, 150],
+    [20, 40, 20]
+  );
   const heightTransformIcon = useTransform(
     distance,
     [-150, 0, 150],
@@ -207,8 +224,15 @@ function IconContainer({
       <motion.div
         ref={ref}
         style={{ width, height }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseEnter={() => {
+          setHovered(true);
+          setIsHovered(true);
+        }}
+        onMouseLeave={() => {
+          setHovered(false);
+          setIsHovered(false);
+        }}
+        
         className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center relative"
       >
         <AnimatePresence>

@@ -1,11 +1,13 @@
 // react/nextjs components
 import Image from "next/image";
 
+// Aceternity UI components
+import { FloatingDock } from "@/components/ui/FloatingDock";
+
 // custom components
 import Hero from "@/components/Hero";
 import Grid from "@/components/Grid";
-
-import { FloatingDock } from "@/components/ui/FloatingDock";
+import RecentProject from "@/components/RecentProject";
 
 // react icons
 import {
@@ -78,12 +80,11 @@ const links = [
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col items-center justify-center bg-black-100 sm:px-10 px-5 mx-auto overflow-hidden">
-      <div>
-        <FloatingDock items={links} />
-        <Hero />
-        <Grid />
-      </div>
+    <main className="relative flex flex-col items-center justify-center bg-black-100 px-60 overflow-hidden">
+      <FloatingDock items={links} />
+      <Hero />
+      <Grid />
+      <RecentProject />
     </main>
   );
 }

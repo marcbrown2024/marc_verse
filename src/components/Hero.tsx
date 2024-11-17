@@ -3,6 +3,7 @@
 // react/nextjs components
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Aceternity UI components
 import { Spotlight } from "@/components/ui/Spotlight";
@@ -22,7 +23,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center pt-12 xs:pt-36">
+    <div className="h-[90vh] flex items-center justify-center pt-12 xs:pt-36">
       <div>
         <Spotlight
           className="-top-40 md:-top-20 -left-10 md:-left-32 h-screen"
@@ -38,14 +39,14 @@ const Hero = () => {
         {/* Radial gradient for the container to give a faded look */}
         <div className="absolute inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] pointer-events-none" />
       </div>
-      <div className="h-fit w-full flex flex-col-reverse lg:flex-row items-center justify-between px-10 md:px-20 z-0">
-        <div className="h-2/3 w-full lg:w-3/5 flex flex-col items-start justify-start gap-6 2xl:gap-12">
+      <div className="h-fit w-full flex flex-col-reverse lg:flex-row items-center justify-between z-0">
+        <div className="h-2/3 w-full lg:w-2/4 flex flex-col items-start justify-start gap-6 2xl:gap-12">
           <TextGenerateEffect
             words="Hi, I'm Marc"
-            className="w-full text-4xl xs:text-[44px] md:text-6xl xl:text-7xl 2xl:text-9xl"
+            className="w-full text-4xl xs:text-[44px] md:text-6xl xl:text-7xl"
           />
           <div
-            className="text-sm xs:text-base md:text-lg lg:text-2xl 2xl:text-4xl md:tracking-wider sm:mb-8 md:mb-0 "
+            className="text-sm xs:text-base md:text-lg lg:text-2xl md:tracking-wider sm:mb-8 md:mb-0 "
             style={{ lineHeight: lineHeight }}
           >
             Aspiring software engineer, proficient in Java, Python, JavaScript,
@@ -54,25 +55,25 @@ const Hero = () => {
           </div>
 
           <div className="w-full flex justify-start gap-8">
-            <a href="/Resume.pdf" download="Marc_Brown_Resume.pdf">
+            <Link href="/Resume.pdf" download="Marc_Brown_Resume.pdf">
               <MagicButton
                 title="My Resume"
                 icon={<FaCloudDownloadAlt />}
                 position="left"
                 animate={false}
               />
-            </a>
-            <a href="https://www.linkedin.com/in/marc-tariq-brown/">
+            </Link>
+            <Link href="https://www.linkedin.com/in/marc-tariq-brown/" target="blank">
               <MagicButton
                 title="&nbsp;Let's Connect"
                 icon="👋"
                 position="left"
                 animate={true}
               />
-            </a>
+            </Link>
           </div>
         </div>
-        <div className="h-48 w-48 xs:h-60 xs:w-60 md:h-80 md:w-80 xl:h-96 xl:w-96 2xl:h-[36rem] 2xl:w-[36rem] bg-white border-4 border-black-200 sm:mb-8 md:mb-0 rounded-full overflow-hidden">
+        <div className="h-48 w-48 xs:h-60 xs:w-60 md:h-80 md:w-80 xl:h-[28rem] xl:w-[28rem] bg-white border-4 border-black-200 sm:mb-8 md:mb-0 rounded-full overflow-hidden">
           <Image
             width={500}
             height={500}

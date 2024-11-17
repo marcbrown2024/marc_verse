@@ -1,8 +1,9 @@
-'use client'
+"use client";
 
 // react/nextjs components
 import React, { useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
+import Image from "next/image";
 
 // library and utilities
 import { cn } from "@/lib/utils";
@@ -97,7 +98,9 @@ export const BentoGridItem = ({
       <div className={`${id === 6 && "flex justify-center"} h-full`}>
         <div className="w-full h-full absolute">
           {img && (
-            <img
+            <Image
+              width={100}
+              height={100}
               src={img}
               alt={img}
               className={cn(imgClassName, "object-cover object-center ")}
@@ -110,10 +113,11 @@ export const BentoGridItem = ({
           } `}
         >
           {spareImg && (
-            <img
+            <Image
+              width={100}
+              height={100}
               src={spareImg}
               alt={spareImg}
-              //   width={220}
               className="object-cover object-center w-full h-full"
             />
           )}
@@ -187,7 +191,6 @@ export const BentoGridItem = ({
                   copied ? "block" : "block"
                 }`}
               >
-                {/* <img src="/confetti.gif" alt="confetti" /> */}
                 <Lottie options={defaultOptions} height={200} width={400} />
               </div>
 
