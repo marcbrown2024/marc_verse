@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 // react/nextjs components
 import React, { useState } from "react";

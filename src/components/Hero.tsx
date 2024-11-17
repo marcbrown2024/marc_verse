@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
 // react/nextjs components
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 // Aceternity UI components
@@ -13,11 +13,13 @@ import MagicButton from "@/components/ui/MagicButton";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 
 const Hero = () => {
-  let lineHeight = "";
+  const [lineHeight, setLineHeight] = useState("2.5rem");
 
-  if (typeof window !== "undefined") {
-    lineHeight = window.innerWidth >= 1024 ? "3.5rem" : "2.5rem";
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth >= 1024) {
+      setLineHeight("3.5rem");
+    }
+  }, [window]);
 
   return (
     <div className="h-screen w-screen flex items-center justify-center pt-12 xs:pt-36">
