@@ -179,7 +179,7 @@ export const BentoGridItem = ({
               loop
               muted
               playsInline
-              className="absolute -top-5 lg:-top-10 left-20"
+              className="absolute -top-5 left-20"
               style={{ objectFit: "cover", opacity: "25%" }}
             >
               <source src="/github_globe.mp4" type="video/mp4" />
