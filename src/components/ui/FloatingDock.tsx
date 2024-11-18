@@ -23,21 +23,18 @@ import {
   useTransform,
 } from "framer-motion";
 
-// react icons
-import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
-
 export const FloatingDock = ({
-  items,
-  desktopClassName,
-  mobileClassName,
+  navItems,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
-  desktopClassName?: string;
-  mobileClassName?: string;
+  navItems: {
+    name: string;
+    link: string;
+    icon?: React.ReactNode;
+  }[];
 }) => {
   const [visible, setVisible] = useState(true);
   const [ishovered, setIsHovered] = useState(false);
-  
+
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
@@ -58,88 +55,89 @@ export const FloatingDock = ({
       }, 2000); // 2 seconds of inactivity
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       clearTimeout(timeoutId);
     };
   }, [ishovered]); // Dependency array includes ishovered to re-run when hover state changes
 
   return (
     <div
-      className={`fixed top-28 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30%] z-50 transition-opacity duration-500 ease-in-out ${
-        visible ? "opacity-100" : "opacity-0 scale-90 -z-50"
-      }`}
+      className={`fixed top-10 sm:top-20 xl:top-28 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-[40%] xl:w-[20%] ${
+        visible ? "opacity-100 z-[1000]" : "opacity-0 scale-90 -z-50"
+      } transition-opacity duration-500 ease-in-out`}
     >
-      <FloatingDockDesktop items={items} className={desktopClassName} setIsHovered={setIsHovered} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
+      <FloatingDockDesktop navItems={navItems} setIsHovered={setIsHovered} />
+      <FloatingDockMobile navItems={navItems} visible={visible} />
     </div>
   );
 };
 
 const FloatingDockMobile = ({
-  items,
+  navItems,
   className,
+  visible,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  navItems: {
+    name: string;
+    link: string;
+    icon?: React.ReactNode;
+  }[];
   className?: string;
+  visible: boolean;
 }) => {
-  const [open, setOpen] = useState(false);
-
   return (
-    <div className={cn("relative block md:hidden", className)}>
-      <AnimatePresence mode="wait">
-        {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute bottom-full mb-2 inset-x-0 flex flex-col justify-between"
-          >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <Link
-                  href={item.href}
-                  key={item.title}
-                  className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-900 flex items-center justify-center"
-                >
-                  <div className="h-4 w-4">{item.icon}</div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        initial={{
+          opacity: 1,
+          y: -100,
+        }}
+        animate={{
+          y: visible ? 0 : -100,
+          opacity: visible ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.2,
+        }}
+        className={cn(
+          "h-12 md:h-16 w-60 md:w-96 flex xl:hidden items-center justify-center space-x-3 rounded-lg shadow-xl",
+          className
         )}
-      </AnimatePresence>
-      <button
-        onClick={() => setOpen(!open)}
-        className="h-10 w-10 rounded-full bg-gray-50 dark:bg-neutral-800 flex items-center justify-center"
+        style={{
+          backdropFilter: "blur(16px) saturate(180%)",
+          backgroundColor: "rgba(17, 25, 40, 0.75)",
+          borderRadius: "12px",
+        }}
       >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
-      </button>
-    </div>
+        {navItems.map((navItem: any, idx: number) => (
+          <Link
+            key={`link=${idx}`}
+            href={navItem.link}
+            className={cn(
+              "relative flex items-center dark:text-neutral-50 text-neutral-600 p-2 bg-white/5 rounded-full dark:hover:text-neutral-300 hover:text-neutral-500"
+            )}
+          >
+            <span>{navItem.icon}</span>
+          </Link>
+        ))}
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
 const FloatingDockDesktop = ({
-  items,
+  navItems,
   className,
   setIsHovered,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  navItems: {
+    name: string;
+    link: string;
+    icon?: React.ReactNode;
+  }[];
   className?: string;
   setIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
@@ -149,12 +147,22 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden md:flex justify-between h-16  items-end rounded-2xl bg-gray-50 dark:bg-neutral-900 px-4 pb-3",
+        "h-16 hidden xl:flex items-end justify-between bg-gray-50 dark:bg-neutral-900 px-4 pb-3 rounded-2xl",
         className
       )}
+      style={{
+        backdropFilter: "blur(16px) saturate(180%)",
+        backgroundColor: "rgba(17, 25, 40, 0.75)",
+        borderRadius: "12px",
+      }}
     >
-      {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} setIsHovered={setIsHovered}/>
+      {navItems.map((item) => (
+        <IconContainer
+          mouseX={mouseX}
+          key={item.name}
+          {...item}
+          setIsHovered={setIsHovered}
+        />
       ))}
     </motion.div>
   );
@@ -162,68 +170,48 @@ const FloatingDockDesktop = ({
 
 function IconContainer({
   mouseX,
-  title,
+  name,
+  link,
   icon,
-  href,
   setIsHovered,
 }: {
   mouseX: MotionValue;
-  title: string;
-  icon: React.ReactNode;
-  href: string;
+  name: string;
+  link: string;
+  icon?: React.ReactNode;
   setIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  let ref = useRef<HTMLDivElement>(null);
 
-  const distance = useTransform(mouseX, (val) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-
+  // Calculate the distance from the mouse to the center of the parent div
+  let distance = useTransform(mouseX, (val) => {
+    let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
 
-  const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
-  const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
+  // Shared size transform for parent and icon
+  let sizeTransform = useTransform(distance, [-50, 0, 50], [40, 60, 40]);
 
-  const widthTransformIcon = useTransform(
-    distance,
-    [-150, 0, 150],
-    [20, 40, 20]
-  );
-  const heightTransformIcon = useTransform(
-    distance,
-    [-150, 0, 150],
-    [20, 40, 20]
-  );
-
-  const width = useSpring(widthTransform, {
-    mass: 0.1,
+  // Spring animations for smooth resizing
+  let parentSize = useSpring(sizeTransform, {
+    mass: 0.2,
     stiffness: 150,
-    damping: 12,
-  });
-  const height = useSpring(heightTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
+    damping: 15,
   });
 
-  const widthIcon = useSpring(widthTransformIcon, {
-    mass: 0.1,
+  let iconSize = useSpring(sizeTransform, {
+    mass: 0.3,
     stiffness: 150,
-    damping: 12,
-  });
-  const heightIcon = useSpring(heightTransformIcon, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
+    damping: 20,
   });
 
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Link href={href}>
+    <Link href={link}>
       <motion.div
         ref={ref}
-        style={{ width, height }}
+        style={{ width: parentSize, height: parentSize }}
         onMouseEnter={() => {
           setHovered(true);
           setIsHovered(true);
@@ -232,8 +220,7 @@ function IconContainer({
           setHovered(false);
           setIsHovered(false);
         }}
-        
-        className="aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center relative"
+        className="relative flex items-center justify-center bg-gray-200 dark:bg-neutral-800 aspect-square rounded-full"
       >
         <AnimatePresence>
           {hovered && (
@@ -243,13 +230,13 @@ function IconContainer({
               exit={{ opacity: 0, y: 2, x: "-50%" }}
               className="px-2 py-0.5 whitespace-pre rounded-md bg-gray-100 border dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 absolute left-1/2 -translate-x-1/2 -top-8 w-fit text-xs"
             >
-              {title}
+              {name}
             </motion.div>
           )}
         </AnimatePresence>
         <motion.div
-          style={{ width: widthIcon, height: heightIcon }}
-          className="flex items-center justify-center"
+          style={{ width: iconSize, height: iconSize }}
+          className="flex items-center justify-center text-xl"
         >
           {icon}
         </motion.div>

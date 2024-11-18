@@ -1,8 +1,10 @@
+"use client";
+
 // react/nextjs components
-import React from 'react'
+import React from "react";
 
 // Aceternity UI components
-import { BentoGrid, BentoGridItem } from '@/components/ui/BentoGrid'
+import { BentoGrid, BentoGridItem } from "@/components/ui/BentoGrid";
 
 // json data
 import { gridItems } from "@/data/index";
@@ -10,7 +12,7 @@ import { gridItems } from "@/data/index";
 const Grid = () => {
   return (
     <section id="about">
-      <BentoGrid className="w-full py-20">
+      <BentoGrid className="w-full pt-20">
         {gridItems.map((item, i) => (
           <BentoGridItem
             id={item.id}
@@ -26,7 +28,7 @@ const Grid = () => {
         ))}
       </BentoGrid>
     </section>
-  )
-}
+  );
+};
 
-export default Grid
+export default Grid;
