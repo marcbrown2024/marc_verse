@@ -94,6 +94,7 @@ const Hero = () => {
             src="/profile_pic.jpg"
             alt="Profile Picture"
             className="h-full w-full object-cover"
+            priority
           />
         </div>
       </div>
