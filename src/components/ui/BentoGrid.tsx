@@ -109,7 +109,7 @@ export const BentoGridItem = ({
                 `object-cover object-center ${
                   id === 4 ? "opacity-50 transform scale-x-[-1]" : ""
                 } ${
-                  id !== 6 ? "w-3/5 h-3/5" : "w-full h-full"
+                  id === 6 ? "w-full h-full" : ""
                 }`
               )}
             />

@@ -26,11 +26,7 @@ import {
 export const FloatingDock = ({
   navItems,
 }: {
-  navItems: {
-    name: string;
-    link: string;
-    icon?: React.ReactNode;
-  }[];
+  navItems: NavItem[];
 }) => {
   const [visible, setVisible] = useState(true);
   const [ishovered, setIsHovered] = useState(false);
@@ -80,11 +76,7 @@ const FloatingDockMobile = ({
   className,
   visible,
 }: {
-  navItems: {
-    name: string;
-    link: string;
-    icon?: React.ReactNode;
-  }[];
+  navItems: NavItem[];
   className?: string;
   visible: boolean;
 }) => {
@@ -112,17 +104,22 @@ const FloatingDockMobile = ({
           borderRadius: "12px",
         }}
       >
-        {navItems.map((navItem: any, idx: number) => (
-          <Link
-            key={`link=${idx}`}
-            href={navItem.link}
-            className={cn(
-              "relative flex items-center dark:text-neutral-50 text-neutral-600 p-2 bg-white/5 rounded-full dark:hover:text-neutral-300 hover:text-neutral-500"
-            )}
-          >
-            <span>{navItem.icon}</span>
-          </Link>
-        ))}
+        {navItems.map(
+          (
+            navItem: { name: string; link: string; icon?: React.ReactNode },
+            idx: number
+          ) => (
+            <Link
+              key={`link=${idx}`}
+              href={navItem.link}
+              className={cn(
+                "relative flex items-center dark:text-neutral-50 text-neutral-600 p-2 bg-white/5 rounded-full dark:hover:text-neutral-300 hover:text-neutral-500"
+              )}
+            >
+              <span>{navItem.icon}</span>
+            </Link>
+          )
+        )}
       </motion.div>
     </AnimatePresence>
   );
@@ -133,11 +130,7 @@ const FloatingDockDesktop = ({
   className,
   setIsHovered,
 }: {
-  navItems: {
-    name: string;
-    link: string;
-    icon?: React.ReactNode;
-  }[];
+  navItems: NavItem[];
   className?: string;
   setIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
@@ -181,25 +174,25 @@ function IconContainer({
   icon?: React.ReactNode;
   setIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  let ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   // Calculate the distance from the mouse to the center of the parent div
-  let distance = useTransform(mouseX, (val) => {
-    let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+  const distance = useTransform(mouseX, (val) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
 
   // Shared size transform for parent and icon
-  let sizeTransform = useTransform(distance, [-50, 0, 50], [40, 60, 40]);
+  const sizeTransform = useTransform(distance, [-50, 0, 50], [40, 60, 40]);
 
   // Spring animations for smooth resizing
-  let parentSize = useSpring(sizeTransform, {
+  const parentSize = useSpring(sizeTransform, {
     mass: 0.2,
     stiffness: 150,
     damping: 15,
   });
 
-  let iconSize = useSpring(sizeTransform, {
+  const iconSize = useSpring(sizeTransform, {
     mass: 0.3,
     stiffness: 150,
     damping: 20,

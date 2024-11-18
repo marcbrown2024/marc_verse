@@ -31,7 +31,6 @@ const RecentProject = () => {
           >
             <PinContainer
               title="github.com/marcbrown2024"
-              href="https://github.com/marcbrown2024"
             >
               <div className="relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
                 <div

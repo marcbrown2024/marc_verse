@@ -1,5 +1,5 @@
 // react/nextjs components
-import Image from "next/image";
+import React from "react";
 
 // Aceternity UI components
 import { FloatingDock } from "@/components/ui/FloatingDock";
@@ -16,7 +16,7 @@ import { IoTerminal } from "react-icons/io5";
 import { BsBuildingsFill } from "react-icons/bs";
 import { MdContactPhone } from "react-icons/md";
 
-export const navItems = [
+const navItems: NavItem[] = [
   { name: "Home", link: "#home", icon: <FaHome /> },
   { name: "About", link: "#about", icon: <ImUserTie /> },
   { name: "Projects", link: "#projects", icon: <IoTerminal /> },
