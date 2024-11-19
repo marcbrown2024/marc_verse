@@ -52,6 +52,7 @@ const Hero = () => {
             href="https://www.linkedin.com/in/marc-tariq-brown/"
             target="blank"
             rel="noopener noreferrer"
+            className="w-fit"
           >
             <MagicButton
               title="&nbsp;Let's Connect"

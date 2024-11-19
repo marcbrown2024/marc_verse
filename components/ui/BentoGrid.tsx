@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 // Aceternity UI components
 import { BackgroundGradientAnimation } from "@/components/ui/GradientBg";
-import GridGlobe from "./GridGlobe";
+import GridGlobe from "@/components/ui/GridGlobe";
 
 // custom components
 import MagicButton from "@/components/MagicButton";
