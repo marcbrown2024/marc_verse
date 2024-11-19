@@ -1,5 +1,7 @@
 // react/nextjs components
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // Aceternity UI components
 import { Spotlight } from "./ui/Spotlight";
@@ -8,16 +10,17 @@ import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 // custom components
 import MagicButton from "@/components/MagicButton";
 
-// icons
-import { FaLocationArrow } from "react-icons/fa6";
-
 const Hero = () => {
+  const [lineHeight, setLineHeight] = useState("2.5rem");
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth >= 1024) {
+      setLineHeight("3.5rem");
+    }
+  }, []);
+
   return (
-    <div className="pb-20 pt-36">
-      {/**
-       *  UI: Spotlights
-       *  Link: https://ui.aceternity.com/components/spotlight
-       */}
+    <div id="home" className="h-[90vh] md:h-[80vh] pt-44 md:pt-36 pb-20">
       <div>
         <Spotlight
           className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen"
@@ -29,51 +32,52 @@ const Hero = () => {
         />
         <Spotlight className="left-80 top-28 h-[80vh] w-[50vw]" fill="blue" />
       </div>
-
-      {/**
-       *  UI: grid
-       *  change bg color to bg-black-100 and reduce grid color from
-       *  0.2 to 0.03
-       */}
-      <div
-        className="h-screen w-full dark:bg-black-100 bg-white dark:bg-grid-white/[0.03] bg-grid-black-100/[0.2]
-       absolute top-0 left-0 flex items-center justify-center"
-      >
-        {/* Radial gradient for the container to give a faded look */}
-        <div
-          // chnage the bg to bg-black-100, so it matches the bg color and will blend in
-          className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100
-         bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"
-        />
-      </div>
-
-      <div className="flex justify-center relative my-20 z-10">
-        <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
-          <p className="uppercase tracking-widest text-xs text-center text-blue-100 max-w-80">
-            Dynamic Web Magic with Next.js
-          </p>
-
-          {/**
-           *  Link: https://ui.aceternity.com/components/text-generate-effect
-           *
-           *  change md:text-6xl, add more responsive code
-           */}
+      <div className="h-full w-full flex flex-col-reverse xl:flex-row items-center justify-between">
+        <div className="h-2/3 xl:h-full w-full xl:w-[55%] flex flex-col justify-center gap-3">
           <TextGenerateEffect
-            words="Transforming Concepts into Seamless User Experiences"
-            className="text-center text-[40px] md:text-5xl lg:text-6xl"
+            words="Hi, I'm Marc!"
+            className="text-4xl md:text-6xl xl:text-8xl"
           />
 
-          <p className="text-center md:tracking-wider mb-4 text-sm md:text-lg lg:text-2xl">
-            Hi! I&apos;m Adrian, a Next.js Developer based in Croatia.
+          <p
+            className="md:text-xl xl:text-3xl md:tracking-wider mb-4"
+            style={{ lineHeight: lineHeight }}
+          >
+            Aspiring software engineer on a mission to craft innovative
+            solutions. Explore my portfolio and discover the passion behind my
+            code.
           </p>
 
-          <Link href="#about">
+          <Link
+            href="https://www.linkedin.com/in/marc-tariq-brown/"
+            target="blank"
+            rel="noopener noreferrer"
+          >
             <MagicButton
-              title="Show my work"
-              icon={<FaLocationArrow />}
-              position="right"
+              title="&nbsp;Let's Connect"
+              icon={
+                <Image
+                  width={35}
+                  height={35}
+                  src="/handwave.gif"
+                  alt="Download gif"
+                  unoptimized
+                  className="mb-2"
+                />
+              }
+              position="left"
             />
           </Link>
+        </div>
+        <div className="h-48 w-48 xs:h-60 xs:w-60 md:h-80 md:w-80 xl:h-[28rem] xl:w-[28rem] border-4 border-black-200 rounded-full overflow-hidden">
+          <Image
+            width={500}
+            height={500}
+            src="/profile_pic.jpg"
+            alt="Profile Picture"
+            className="h-full w-full object-cover"
+            priority
+          />
         </div>
       </div>
     </div>

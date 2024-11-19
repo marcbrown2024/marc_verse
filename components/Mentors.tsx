@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+
+import { InfiniteMovingCards } from "@/components/ui/InfiniteCards";
 
 import { companies, testimonials } from "@/data";
-import { InfiniteMovingCards } from "./ui/InfiniteCards";
 
-const Clients = () => {
+const Mentors = () => {
   return (
-    <section id="testimonials" className="py-20">
+    <section id="testimonials">
       <h1 className="heading">
         Kind words from
         <span className="text-purple"> Mentors</span>
@@ -29,12 +31,12 @@ const Clients = () => {
           {companies.map((company) => (
             <React.Fragment key={company.id}>
               <div className="flex md:max-w-60 max-w-32 gap-2">
-                <img
+                <Image
                   src={company.img}
                   alt={company.name}
                   className="md:w-10 w-5"
                 />
-                <img
+                <Image
                   src={company.nameImg}
                   alt={company.name}
                   width={company.id === 4 || company.id === 5 ? 100 : 150}
@@ -49,4 +51,4 @@ const Clients = () => {
   );
 };
 
-export default Clients;
+export default Mentors;

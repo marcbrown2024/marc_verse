@@ -8,7 +8,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 // Theme configuration component
-import { ThemeProvider } from "@/app/ThemeProvider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
