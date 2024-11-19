@@ -24,18 +24,20 @@ const RecentProjects = () => {
               title="github.com/marcbrown2024"
               href="https://github.com/marcbrown2024"
             >
-              <div className="relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
+              <div className="relative w-[80vw] sm:w-96 h-[20vh] lg:h-[30vh] flex items-center justify-center mb-10 overflow-hidden">
                 <div
-                  className="relative w-full h-full overflow-hidden lg:rounded-3xl"
+                  className="relative w-full h-full lg:rounded-3xl overflow-hidden"
                   style={{ backgroundColor: "#13162D" }}
                 >
-                  <Image src="/bg.png" alt="bgimg" />
+                  <Image width={100} height={100} src="/bg.png" alt="bgimg" />
+                  <Image
+                    width={100}
+                    height={100}
+                    src={item.img}
+                    alt="cover"
+                    className="absolute -bottom-2 w-full object-cover z-10"
+                  />
                 </div>
-                <Image
-                  src={item.img}
-                  alt="cover"
-                  className="z-10 absolute bottom-0"
-                />
               </div>
 
               <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
@@ -62,7 +64,13 @@ const RecentProjects = () => {
                         transform: `translateX(-${5 * index + 2}px)`,
                       }}
                     >
-                      <Image src={icon} alt="icon5" className="p-2" />
+                      <Image
+                        width={100}
+                        height={100}
+                        src={icon}
+                        alt="icon5"
+                        className="p-2"
+                      />
                     </div>
                   ))}
                 </div>
