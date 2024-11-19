@@ -32,16 +32,6 @@ const navItems: NavItem[] = [
 ];
 
 const Home = () => {
-  // const [isClient, setIsClient] = useState(false);
-
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
-
-  // if (!isClient) {
-  //   return null;
-  // }
-
   return (
     <main className="relative flex items-center justify-center mx-auto overflow-hidden">
       <FloatingDock navItems={navItems} />
