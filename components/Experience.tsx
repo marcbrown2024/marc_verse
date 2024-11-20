@@ -7,7 +7,7 @@ import { workExperience } from "@/data";
 
 const Experience = () => {
   return (
-    <div className="w-full">
+    <div id="experience" className="w-full">
       <h1 className="heading">
         My <span className="text-purple">work experience</span>
       </h1>

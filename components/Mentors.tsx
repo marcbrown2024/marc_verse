@@ -9,7 +9,7 @@ import { companies, testimonials } from "@/data";
 
 const Mentors = () => {
   return (
-    <section id="testimonials">
+    <section id="testimonials" className="h-[65vh] relative">
       <h1 className="heading">
         Kind words from
         <span className="text-purple"> Mentors</span>
@@ -27,27 +27,29 @@ const Mentors = () => {
           />
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-16 max-lg:mt-10">
-          {companies.map((company) => (
-            <React.Fragment key={company.id}>
-              <div className="flex md:max-w-60 max-w-32 gap-2">
-                <Image
-                  width={100}
-                  height={100}
-                  src={company.img}
-                  alt={company.name}
-                  className="md:w-10 w-5"
-                />
-                <Image
-                  src={company.nameImg}
-                  alt={company.name}
-                  width={company.id === 4 || company.id === 5 ? 100 : 150}
-                  height={company.id === 4 || company.id === 5 ? 100 : 150}
-                  className="md:w-24 w-20"
-                />
-              </div>
-            </React.Fragment>
-          ))}
+        <div className="absolute bottom-0 h-28 w-screen flex flex-wrap items-center justify-center gap-4 md:gap-16">
+          {companies.map((company) => {
+            const { id, img, name } = company;
+            return (
+              <React.Fragment key={id}>
+                <div className="relative h-28 w-28 flex items-center justify-center bg-white rounded-full">
+                  <Image
+                    width={100}
+                    height={100}
+                    src={img}
+                    alt={name}
+                    className={`${
+                      id === 1 || id === 4
+                        ? "h-14  object-contain"
+                        : id === 6
+                        ? "h-20"
+                        : "h-10  object-contain"
+                    }`}
+                  />
+                </div>
+              </React.Fragment>
+            );
+          })}
         </div>
       </div>
     </section>

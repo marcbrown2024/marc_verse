@@ -62,10 +62,10 @@ const Hero = () => {
                   height={35}
                   src="/handwave.gif"
                   alt="Download gif"
-                  unoptimized
                   className="mb-2"
                 />
               }
+              animate
               position="left"
             />
           </Link>

@@ -25,7 +25,6 @@
     "mini-svg-data-uri": "^1.4.4",
     "next": "14.2.18",
     "next-themes": "^0.3.0",
-    "portfolio": "file:",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
@@ -34,7 +33,6 @@
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.163.0",
     "three-globe": "^2.31.0",
-    "uuid": "^7.0.3",
     "vercel": "^34.0.0"
   },
   "devDependencies": {

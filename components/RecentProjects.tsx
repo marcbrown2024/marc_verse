@@ -10,14 +10,14 @@ import { projects } from "@/data";
 
 const RecentProjects = () => {
   return (
-    <div className="w-full">
+    <div id="projects" className="w-full">
       <h1 className="heading">
         My<span className="text-purple">&nbsp;recent projects</span>
       </h1>
       <div className="flex flex-wrap items-center justify-center p-4 gap-16 mt-10">
         {projects.map((item) => (
           <div
-            className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]"
+            className="h-[25rem] lg:min-h-[32.5rem] w-[80vw] sm:w-96 flex items-center justify-center"
             key={item.id}
           >
             <PinContainer

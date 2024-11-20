@@ -33,7 +33,7 @@ const navItems: NavItem[] = [
 
 const Home = () => {
   return (
-    <main className="relative flex items-center justify-center mx-auto overflow-hidden">
+    <main className="relative flex items-center justify-center mx-auto overflow-clip">
       <FloatingDock navItems={navItems} />
       <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-black-100/40 bg-grid-white/[0.03]">
         {/* Radial gradient for the container to give a faded look */}

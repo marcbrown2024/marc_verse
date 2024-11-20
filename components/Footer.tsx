@@ -28,6 +28,7 @@ const Footer = () => {
             title="Let's get in touch"
             icon={<FaLocationArrow />}
             position="right"
+            animate
           />
         </Link>
       </div>
